@@ -14,7 +14,7 @@ sudo apt install nala
 # - starship
 # - yazi
 # - zellij
-sudo nala install bat curl fd-find git jq micro ripgrep
+sudo nala install bat curl fd-find gh git jq micro ripgrep
 
 sudo nala install fish
 
@@ -30,4 +30,5 @@ fi
 # Install chezmoi dotfiles manager
 cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)"
 
-cd -
+# Install distrobox
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix ~/.local
