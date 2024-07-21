@@ -14,6 +14,20 @@ sudo apt install nala
 # - starship
 # - yazi
 # - zellij
-sudo nala install bat fd-find git jq micro ripgrep
+sudo nala install bat curl fd-find git jq micro ripgrep
 
 sudo nala install fish
+
+# Create some directories
+if [ ! -d $HOME/.local/bin ]; then
+	mkdir -p $HOME/.local/bin
+fi 
+
+if [ ! -d $HOME/.local/share/fonts ]; then
+	mkdir -p $HOME/.local/share/{fonts,icons,themes}
+fi
+
+# Install chezmoi dotfiles manager
+cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)"
+
+cd -
