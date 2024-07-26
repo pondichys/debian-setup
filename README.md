@@ -129,11 +129,9 @@ debootstrap --arch amd64 --include=vim bookworm /mnt http://deb.debian.org/debia
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Set up APT repositories
-mv /etc/apt/sources.list /etc/apt/sources.list.old
-
 CODENAME="bookworm"
 #stable, non-free, backports
-cat > /etc/apt/sources.list << EOF
+cat > /mnt/etc/apt/sources.list << EOF
 deb http://deb.debian.org/debian ${CODENAME} main contrib non-free non-free-firmware
 deb-src http://deb.debian.org/debian ${CODENAME} main contrib non-free non-free-firmware
 
