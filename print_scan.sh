@@ -5,3 +5,4 @@ sudo nala install printer-driver-all
 
 
 sudo nala install sane airscan-sane
+sudo nala install simple-scan
