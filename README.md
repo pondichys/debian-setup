@@ -246,6 +246,7 @@ cryptroot/keyfiles/${DM}.key
 apt install grub-efi-amd64
 # Configure /etc/default/grub for encryption support
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
+# The line hereunder does not work correctly ... there is a missing " at the end ... to be checked
 sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\"[^\"]*\)$/ cryptdevice=UUID=${LUKS_UUID}:${DM} root=\/dev\/mapper\/${DM}/" /etc/default/grub
 
 echo 'GRUB_PRELOAD_MODULES="part_gpt part_msdos cryptodisk luks btrfs"' >> /etc/default/grub #btrfs?
