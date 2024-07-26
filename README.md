@@ -101,7 +101,7 @@ umount /mnt
 mount -o ${BTRFS_OPTS},subvol=@ /dev/mapper/${DM} /mnt
 
 mkdir -p /mnt/boot/efi
-mkdir /mnt/{home,.snapshots,tmp}
+mkdir /mnt/{home,.snapshots,opt,tmp}
 mkdir -p /mnt/var/{cache,log}
 mkdir -p /mnt/var/lib/containers
 
@@ -110,6 +110,7 @@ mount -o ${BTRFS_OPTS},subvol=@snapshots /dev/mapper/${DM} /mnt/.snapshots
 mount -o ${BTRFS_OPTS},subvol=@cache /dev/mapper/${DM} /mnt/var/cache
 mount -o ${BTRFS_OPTS},subvol=@log /dev/mapper/${DM} /mnt/var/log
 mount -o ${BTRFS_OPTS},subvol=@tmp /dev/mapper/${DM} /mnt/tmp
+mount -o ${BTRFS_OPTS},subvol=@opt /dev/mapper/${DM} /mnt/opt
 mount -o ${BTRFS_OPTS},subvol=@containers /dev/mapper/${DM} /mnt/var/lib/containers
 # mount -o ${BTRFS_OPTS},subvol=@images /dev/mapper/${DM} /mnt/var/lib/libvirt/images
 # Mount /boot/efi
