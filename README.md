@@ -162,8 +162,9 @@ btrfs-progs cryptsetup-initramfs fonts-terminus
 # Set your timezone
 dpkg-reconfigure tzdata
 
-# Install networking
-apt install network-manager
+# Install networking - network-manager-gnome is needed to get nm-applet tray icon
+apt install network-manager \
+network-manager-gnome 
 
 # Setup host name
 HOSTNAME="debian-yoga"
@@ -198,8 +199,8 @@ passwd seb
 
 # Install doas or sudo
 # doas
-apt install opendoas
-echo "permit seb" > /etc/doas.conf
+# apt install opendoas
+# echo "permit seb" > /etc/doas.conf
 
 # sudo
 apt install sudo
