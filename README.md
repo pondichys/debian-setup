@@ -237,7 +237,7 @@ stat -L -c "%A  %n" /initrd.img
 -rw-------  /initrd.img
 
 lsinitramfs /initrd.img | grep "^cryptroot/keyfiles/"
-cryptroot/keyfiles/${DM}luks.key
+cryptroot/keyfiles/${DM}.key
 ```
 
 # Setup bootloader
