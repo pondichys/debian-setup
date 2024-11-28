@@ -196,7 +196,7 @@ dpkg-reconfigure keyboard-configuration
 passwd root
 
 # Optional - create additional user
-useradd -m seb
+useradd --create-home seb --shell /bin/bash
 usermod -aG cdrom,floppy,audio,dip,video,plugdev,netdev seb
 passwd seb
 
