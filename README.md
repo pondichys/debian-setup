@@ -160,7 +160,7 @@ apt install -y linux-image-amd64/${CODENAME}-backports \
 # Install base system
 apt install -y firmware-iwlwifi firmware-linux firmware-linux-nonfree \
 micro bash-completion command-not-found plocate usbutils hwinfo \
-btrfs-progs cryptsetup-initramfs fonts-terminus
+btrfs-progs cryptsetup-initramfs fonts-terminus man-db
 
 # Set your timezone
 dpkg-reconfigure tzdata
