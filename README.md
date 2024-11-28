@@ -85,13 +85,14 @@ mount -o ${BTRFS_OPTS} /dev/mapper/${DM} /mnt
 # Create BTRFS subvolumes
 btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
-btrfs su cr /mnt/@snapshots
-btrfs su cr /mnt/@cache
-btrfs su cr /mnt/@tmp
-btrfs su cr /mnt/@log
 btrfs su cr /mnt/@opt
+btrfs su cr /mnt/@root
+btrfs su cr /mnt/@snapshots
+btrfs su cr /mnt/@tmp
+btrfs su cr /mnt/@varcache
+btrfs su cr /mnt/@varlog
 # Containers
-btrfs su cr /mnt/@containers
+# btrfs su cr /mnt/@containers
 # libvirt
 # btrfs su cr /mnt/@images #/mnt/var/lib/libvirt
 
@@ -100,19 +101,21 @@ umount /mnt
 # Mount /mnt using @ BTRFS subvolume
 mount -o ${BTRFS_OPTS},subvol=@ /dev/mapper/${DM} /mnt
 
-mkdir -p /mnt/boot/efi
-mkdir /mnt/{home,.snapshots,opt,tmp}
-mkdir -p /mnt/var/{cache,log}
-mkdir -p /mnt/var/lib/containers
+mkdir -pv /mnt/boot/efi
+mkdir -v /mnt/{home,.snapshots,opt,root,tmp}
+mkdir -pv /mnt/var/{cache,log}
+# mkdir -pv /mnt/var/lib/containers
 
 mount -o ${BTRFS_OPTS},subvol=@home /dev/mapper/${DM} /mnt/home
 mount -o ${BTRFS_OPTS},subvol=@snapshots /dev/mapper/${DM} /mnt/.snapshots
-mount -o ${BTRFS_OPTS},subvol=@cache /dev/mapper/${DM} /mnt/var/cache
-mount -o ${BTRFS_OPTS},subvol=@log /dev/mapper/${DM} /mnt/var/log
+mount -o ${BTRFS_OPTS},subvol=@varcache /dev/mapper/${DM} /mnt/var/cache
+mount -o ${BTRFS_OPTS},subvol=@varlog /dev/mapper/${DM} /mnt/var/log
 mount -o ${BTRFS_OPTS},subvol=@tmp /dev/mapper/${DM} /mnt/tmp
 mount -o ${BTRFS_OPTS},subvol=@opt /dev/mapper/${DM} /mnt/opt
-mount -o ${BTRFS_OPTS},subvol=@containers /dev/mapper/${DM} /mnt/var/lib/containers
+mount -o ${BTRFS_OPTS},subvol=@root /dev/mapper/${DM} /mnt/root
+# mount -o ${BTRFS_OPTS},subvol=@containers /dev/mapper/${DM} /mnt/var/lib/containers
 # mount -o ${BTRFS_OPTS},subvol=@images /dev/mapper/${DM} /mnt/var/lib/libvirt/images
+
 # Mount /boot/efi
 mount -o noatime ${EFI_PART} /mnt/boot/efi
 
@@ -151,11 +154,11 @@ LANG=C.UTF-8 arch-chroot /mnt /bin/bash
 # Update
 apt update
 # Install kernel from backports
-apt install linux-image-amd64/${CODENAME}-backports \
+apt install -y linux-image-amd64/${CODENAME}-backports \
  linux-headers-amd64/${CODENAME}-backports
  
 # Install base system
-apt install firmware-iwlwifi firmware-linux firmware-linux-nonfree \
+apt install -y firmware-iwlwifi firmware-linux firmware-linux-nonfree \
 micro bash-completion command-not-found plocate usbutils hwinfo \
 btrfs-progs cryptsetup-initramfs fonts-terminus
 
@@ -163,7 +166,7 @@ btrfs-progs cryptsetup-initramfs fonts-terminus
 dpkg-reconfigure tzdata
 
 # Install networking - network-manager-gnome is needed to get nm-applet tray icon
-apt install network-manager \
+apt install -y network-manager \
 network-manager-gnome 
 
 # Setup host name
@@ -199,11 +202,11 @@ passwd seb
 
 # Install doas or sudo
 # doas
-# apt install opendoas
+# apt install -y opendoas
 # echo "permit seb" > /etc/doas.conf
 
 # sudo
-apt install sudo
+apt install -y sudo
 usermod -aG sudo seb
 ```
 
@@ -244,13 +247,12 @@ cryptroot/keyfiles/${DM}.key
 # Setup bootloader
 
 ```bash
-apt install grub-efi-amd64
+apt install -y grub-efi-amd64
 # Configure /etc/default/grub for encryption support
 echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
-# The line hereunder does not work correctly ... there is a missing " at the end ... to be checked
-sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\"[^\"]*\)$/ cryptdevice=UUID=${LUKS_UUID}:${DM} root=\/dev\/mapper\/${DM}/" /etc/default/grub
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"\(.*\)\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\1 cryptdevice=UUID=${LUKS_UUID}:${DM} root=\/dev\/mapper\/${DM}\"/" /etc/default/grub
 
-echo 'GRUB_PRELOAD_MODULES="part_gpt part_msdos cryptodisk luks btrfs"' >> /etc/default/grub #btrfs?
+echo 'GRUB_PRELOAD_MODULES="part_gpt part_msdos cryptodisk luks btrfs"' >> /etc/default/grub
 # Optional graphics-related grub settings
 echo 'GRUB_GFXPAYLOAD=keep' >> /etc/default/grub
 echo 'GRUB_TERMINAL=gfxterm' >> /etc/default/grub
