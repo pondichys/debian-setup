@@ -1,1 +1,2 @@
-sudo apt install -t bookworm-backports pipepwire-audio
+#!/usr/bin/env bash
+sudo apt install -t bookworm-backports pipewire-audio
