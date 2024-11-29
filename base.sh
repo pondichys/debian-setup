@@ -24,6 +24,7 @@ sudo apt install bat curl fd-find fzf git jq ripgrep tmux vim wget
 echo "Creating $HOME/.local directories"
 if [ ! -d $HOME/.local/bin ]; then
 	mkdir -pv $HOME/.local/bin
+        export $PATH=$HOME/.local/bin;$PATH
 fi 
 
 if [ ! -d $HOME/.local/share/fonts ]; then
