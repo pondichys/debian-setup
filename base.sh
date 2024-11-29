@@ -30,13 +30,13 @@ if [ ! -d $HOME/.local/share/fonts ]; then
 	mkdir -pv $HOME/.local/share/{fonts,icons,themes}
 fi
 
-if command -v zoxide &> /dev/null
+if ! command -v zoxide &> /dev/null
 then
     echo "Installing zoxide from github"
     curl -sSfl https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
-if command -v fastfetch &> /dev/null
+if ! command -v fastfetch &> /dev/null
 then
     echo "Installing fastfetch from github"
 
@@ -54,8 +54,11 @@ then
 
 fi
 
-echo "Installing chezmoi dotfiles manager"
-cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)"
+if ! command -v chezmoi &> /dev/null
+then
+    echo "Installing chezmoi dotfiles manager"
+    cd $HOME && sh -c "$(curl -fsLS get.chezmoi.io/lb)"
+fi
 
 # Install distrobox
 # curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sh -s -- --prefix ~/.local
