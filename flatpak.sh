@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-sudo nala install flatpak
+sudo apt install flatpak
 
 # Configure flathub
 flatpak remote-add --if-not-exists flathub \
