@@ -39,19 +39,9 @@ fi
 if ! command -v fastfetch &> /dev/null
 then
     echo "Installing fastfetch from github"
-
-    echo "Finding latest available release"
-    latest_release=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest) || handle_error "Cannot retrieve latest release info"
-
-    echo "Extracting version tag"
-    version=$(echo "$latest_release" | grep '"tag_name"' | cut -d '"' -f 4) || handle_error "Cannot extract version"
-
-    echo "Finding download URL of the AMD64 .deb package"
-    deb_url=$(echo "$latest_release" | grep -E "fastfetch.*amd64\.deb" | cut -d '"' -f 4) || handle_error "Cannot find amd64 .deb package"
-
-    echo "Downloading fastfetch version $version..."
-    wget "$deb_url" -O "$HOME/fastfetch_${version}_amd64.deb" || handle_error "Failed to download"
-
+    ff_url = $(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest | jq -r '.assets[] | select(.name | test(".*linux-amd64.deb$")) | .browser_download_url')
+    wget $ff_url -o fastfetch-linux-amd64.deb
+    sudo apt install ./fastfetch-linux-amd64.deb
 fi
 
 if ! command -v chezmoi &> /dev/null
