@@ -11,14 +11,13 @@ flatpak_apps=(
   "fr.handbrake.ghb"
   "io.github.flattool.Warehouse"
   "io.github.giantpinkrobots.flatsweep"
-  "io.github.zen_browser.zen"
   "md.obsidian.Obsidian"
   "org.gnome.Papers"
 )
 
 function flatpak_install() {
     local app_list=("$@")
-    
+
     for app in "${app_list[@]}"; do
         echo "Installing: $app"
         if flatpak install -y "$app"; then
@@ -37,5 +36,4 @@ echo "Installing flatpak applications"
 flatpak_install "${flatpak_apps[@]}"
 
 exit 0
-
 
