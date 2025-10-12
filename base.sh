@@ -4,7 +4,7 @@ echo "Installing base utilities"
 # wl-clipboard and xsel are needed for tmux clipboard integration under wayland / x11
 sudo apt-get install bat curl fd-find git jq ripgrep vim wget wl-clipboard xsel
 
-"Install fish shell"
+echo "Install fish shell"
 sudo apt-get install fish
 
 echo "Installing curated list of external repositories"
