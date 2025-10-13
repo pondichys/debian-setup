@@ -19,17 +19,20 @@ get_latest_release_tag() {
   echo "$tag"
 }
 
-# Download a single font
-download_font() {
+# Install a single font
+install_font() {
   local font_name="$1"
   local release_tag="$2"
   local download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/${release_tag}/${font_name}.zip"
+  local font_dir="$HOME/.local/share/fonts"
 
   echo "Downloading: $font_name"
-  if wget -q --show-progress "$download_url" -O "$HOME/Downloads/$font_name"; then
-     echo "Successfully downloaded: $font_name"
+  if wget -q --show-progress "$download_url" -O "${font_dir}/${font_name}.zip"; then
+     echo "Successfully downloaded: ${font_name}"
+     echo "Extracting font ${font_name}"
+     unzip "${font_dir}/${font_name}.zip" -d "${font_dir}/${font_name}/"
    else
-     echo "Error: Failed to download: $font_name" >&2
+     echo "Error: Failed to download: ${font_name}" >&2
    fi
 }
 
@@ -47,12 +50,12 @@ main() {
     if [ ! -d $HOME/.local/share/fonts ]; then
       mkdir -pv $HOME/.local/share/fonts 
     fi
-    # Download the listed fonts
+    # Install the listed fonts
     for font in "${FONTS[@]}"; do
-      download_font "$font" "$latest_tag"
+      install_font "$font" "$latest_tag"
     done
 
-    echo "All downloads complete. Fonts are in the $HOME/Downloads directory."
+    echo "All downloads complete. Fonts are in the $HOME/.local/share/fonts directory."
 }
 
 main
