@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-sudo nala install cups system-config-printer
-sudo nala install printer-driver-all
+sudo apt-get install cups system-config-printer
+sudo apt-get install printer-driver-all
 
 
-sudo nala install sane airscan-sane
-sudo nala install simple-scan
+sudo apt-get install sane airscan-sane
+sudo apt-get install simple-scan
