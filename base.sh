@@ -10,10 +10,6 @@ sudo apt-get install fish
 echo "Install zram-tools"
 sudo apt-get install zram-tools
 
-#echo "Installing curated list of external repositories"
-#sudo apt-get install extrepo
-#echo "You can use extrepo enable ... to enable external repositories like Librewolf, Brave, VS Code, etc ..."
-
 echo "Creating $HOME/.local directories"
 if [ ! -d $HOME/.local/bin ]; then
 	mkdir -pv $HOME/.local/bin
