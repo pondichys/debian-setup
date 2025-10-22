@@ -2,7 +2,6 @@
 
 # Add or remove applications as needed
 flatpak_apps=(
-  "app.devsuite.Ptyxis"
   "com.bitwarden.desktop"
   "com.discordapp.Discord"
   "com.spotify.Client"
