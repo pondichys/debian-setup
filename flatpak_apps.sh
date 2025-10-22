@@ -12,6 +12,10 @@ flatpak_apps=(
   "io.github.giantpinkrobots.flatsweep"
   "md.obsidian.Obsidian"
   "org.gnome.Papers"
+  "com.mattjakeman.ExtensionManager"
+  "com.vivaldi.Vivaldi"
+  "com.synology.SynologyDrive"
+  "org.libreoffice.LibreOffice"
 )
 
 function flatpak_install() {
