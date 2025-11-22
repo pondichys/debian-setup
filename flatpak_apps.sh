@@ -38,5 +38,9 @@ function flatpak_install() {
 echo "Installing flatpak applications"
 flatpak_install "${flatpak_apps[@]}"
 
+echo "Run flatpak override --user com.valvesoftware.Steam --filesystem=/path/to/games"
+echo "if you want to store your Steam games on a secondary drive."
+echo "The drive should not be mounted inside your HOME directory."
+
 exit 0
 
