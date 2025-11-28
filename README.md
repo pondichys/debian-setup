@@ -6,7 +6,7 @@ Additional info
 
 [Tune LUKS Parameters for Unlock Speed in GRUB - Gentoo Configuration Guide: Full Disk LUKS2 with GRUB and systemd](https://leo3418.github.io/collections/gentoo-config-luks2-grub-systemd/tune-parameters.html)
 
-Download the a Debian live ISO image. Downloading a live image enables to boot and work in a desktop environment to ease copy/paste during the installation process. I use the XFCE live image but any live image is ok.
+Download the a Debian live ISO image from the [Debian web site](https://www.debian.org/CD/live/). Downloading a live image enables to boot and work in a desktop environment to ease copy/paste during the installation process. I use the XFCE live image but any live image is ok.
 
 ## Boot on the iso
 
